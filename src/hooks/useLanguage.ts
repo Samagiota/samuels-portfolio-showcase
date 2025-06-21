@@ -36,7 +36,7 @@ export interface Translations {
 const translations: { pt: Translations; en: Translations } = {
   pt: {
     title: "Meus Projetos",
-    subtitle: "Bem-vindo ao meu portfólio! Aqui você encontra uma seleção dos meus trabalhos mais recentes em desenvolvimento web.",
+    subtitle: "Bem-vindo à minha galeria! Aqui você encontra uma seleção dos meus trabalhos mais recentes em desenvolvimento web.",
     projectsTitle: "Projetos em Destaque",
     aboutTitle: "Quem Sou Eu",
     aboutName: "Olá, eu sou o Samuel! 👋",
@@ -67,7 +67,7 @@ const translations: { pt: Translations; en: Translations } = {
   },
   en: {
     title: "My Projects",
-    subtitle: "Welcome to my portfolio! Here you'll find a selection of my latest work in web development.",
+    subtitle: "Welcome to my gallery! Here you'll find a selection of my latest work in web development.",
     projectsTitle: "Featured Projects",
     aboutTitle: "Who Am I",
     aboutName: "Hello, I'm Samuel! 👋",
