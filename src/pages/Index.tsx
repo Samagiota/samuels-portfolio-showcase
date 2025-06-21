@@ -1,4 +1,3 @@
-
 import { Phone, Mail, ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,10 +6,13 @@ import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
 import { useTheme } from "@/hooks/useTheme";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useState, useEffect } from "react";
 
 const Index = () => {
   const { isDark, toggleTheme } = useTheme();
   const { isEnglish, toggleLanguage, t } = useLanguage();
+  const [api, setApi] = useState<any>();
+  const [current, setCurrent] = useState(0);
 
   const projects = [
     {
@@ -79,6 +81,18 @@ const Index = () => {
     }
   ];
 
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900 relative overflow-hidden transition-colors duration-300">
       {/* Top Controls */}
@@ -117,6 +131,7 @@ const Index = () => {
             </h2>
             
             <Carousel
+              setApi={setApi}
               opts={{
                 align: "start",
                 loop: true,
@@ -174,6 +189,22 @@ const Index = () => {
               <CarouselPrevious className="left-4 bg-amber-100 hover:bg-amber-200 dark:bg-slate-700 dark:hover:bg-slate-600 border-amber-300 dark:border-slate-600" />
               <CarouselNext className="right-4 bg-amber-100 hover:bg-amber-200 dark:bg-slate-700 dark:hover:bg-slate-600 border-amber-300 dark:border-slate-600" />
             </Carousel>
+
+            {/* Project Indicators */}
+            <div className="flex justify-center items-center gap-2 mt-8">
+              {projects.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    Math.floor(current) === index
+                      ? "bg-amber-600 dark:bg-amber-400 scale-125"
+                      : "bg-amber-200 dark:bg-amber-700 hover:bg-amber-300 dark:hover:bg-amber-600"
+                  }`}
+                  onClick={() => api?.scrollTo(index)}
+                  aria-label={`Go to project ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
